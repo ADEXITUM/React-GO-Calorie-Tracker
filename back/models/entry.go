@@ -7,6 +7,6 @@ import (
 type Entry struct {
 	ID       primitive.ObjectID `bson:"id"`
 	Dish     *string            `json:"dish"`
-	Macroes  *float64           `json:"macroes"`
+	Macroes  *string            `json:"macroes"`
 	Calories *int               `json:"calories"`
 }

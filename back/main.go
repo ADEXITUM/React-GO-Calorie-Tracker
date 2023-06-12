@@ -16,6 +16,8 @@ func main() {
 	if err != nil {
 		log.Fatalf("#1: Error loading .env file\n%s", err)
 	}
+	log.Println("Loaded config")
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		log.Fatal("#2: Error loading port")
@@ -25,9 +27,12 @@ func main() {
 	router.Use(gin.Logger())
 	router.Use(cors.Default())
 
+	log.Println("Set up a gin instance")
+
 	router.POST("/entry/create", routes.AddEntry)
 	router.GET("/entries/", routes.GetEntries)
 	router.GET("/entries/:id/", routes.GetEntryById)
+	router.GET("/dish/:dish/", routes.GetEntriesByDish)
 
 	router.PUT("/entry/update/:id/", routes.UpdateEntry)
 	router.DELETE("/entry/delete/:id", routes.DeleteEntry)
