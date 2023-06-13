@@ -12,6 +12,10 @@
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "sprintf-js": "^1.1.2",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.12",
+    "sweetalert2-react-content": "^5.0.7",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

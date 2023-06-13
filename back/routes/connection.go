@@ -12,11 +12,15 @@ import (
 var Client *mongo.Client = DBinstance()
 
 func DBinstance() *mongo.Client {
-	MongoURI := "mongodb://localhost:27017/caloriesdb"
-
-	client, err := mongo.NewClient(options.Client().ApplyURI(MongoURI))
+	cfg, err := InitConfig()
 	if err != nil {
 		log.Printf("routes.DBinstance: #1\nError setting up DB\n%s\n\n", err)
+		return nil
+	}
+
+	client, err := mongo.NewClient(options.Client().ApplyURI(cfg.MongoURI))
+	if err != nil {
+		log.Printf("routes.DBinstance: #2\nError setting up DB\n%s\n\n", err)
 		return nil
 	}
 
@@ -26,7 +30,7 @@ func DBinstance() *mongo.Client {
 
 	err = client.Connect(ctx)
 	if err != nil {
-		log.Printf("routes.DBinstance: #1\nError setting up DB\n%s\n\n", err)
+		log.Printf("routes.DBinstance: #3\nError setting up DB\n%s\n\n", err)
 		return nil
 	}
 

@@ -7,6 +7,12 @@ import (
 type Entry struct {
 	ID       primitive.ObjectID `bson:"id"`
 	Dish     *string            `json:"dish"`
-	Macroes  *string            `json:"macroes"`
-	Calories *int               `json:"calories"`
+	Macroes  *Macroes           `json:"macroes"`
+	Calories *int64             `json:"calories"`
+}
+
+type Macroes struct {
+	Protein int64 `json:"protein"`
+	Fat     int64 `json:"fat"`
+	Carbs   int64 `json:"carbs"`
 }

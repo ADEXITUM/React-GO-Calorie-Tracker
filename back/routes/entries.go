@@ -153,9 +153,24 @@ func DeleteEntry(c *gin.Context) {
 	defer cancel()
 
 	result, err := entryColletion.DeleteOne(ctx, bson.M{"_id": docID})
-
 	if err != nil {
 		log.Printf("routes.DeleteEntry: #1\nError deleting item from DB\n%s\n\n", err)
+		c.JSON(http.StatusInternalServerError,
+			gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, result.DeletedCount)
+}
+
+func DeleteAll(c *gin.Context) {
+	var ctx, cancel = context.WithTimeout(context.Background(), 60*time.Second)
+
+	defer cancel()
+
+	result, err := entryColletion.DeleteMany(ctx, bson.D{})
+	if err != nil {
+		log.Printf("routes.DeleteAll: #2\nError deleting all items from DB\n%s\n\n", err)
 		c.JSON(http.StatusInternalServerError,
 			gin.H{"error": err.Error()})
 		return
