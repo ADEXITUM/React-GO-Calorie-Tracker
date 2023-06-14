@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import {Button, Form, Container, Modal, Col} from 'react-bootstrap';
+import {Button, Form, Container, Modal} from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content'
 import '../index.css'
@@ -41,10 +41,10 @@ const Entries = () => {
     return (
         <div>
             <Container>
-                <Button onClick={() => setAddNewEntry(true)}>Track today's calories</Button>
-                <Button onClick={() => setMisc(true)}>Misc</Button>
+                <Button variant="outline-dark" onClick={() => setAddNewEntry(true)}>Track today's calories</Button>
+                <Button variant="outline-dark" onClick={() => setMisc(true)}>Misc</Button>
             </Container>
-            <Container class="calorieCounter">                
+            <Container show={showDeleteAll} class="calorieCounter">                
                 {showDeleteAll && <div>Your today's calories: {totalCalories}</div>}
             </Container>
             <Container>
@@ -53,15 +53,15 @@ const Entries = () => {
                 ))}
             </Container>
             <Container>
-                {showDeleteAll && <Button onClick={() => deleteAll()}>DELETE ALL</Button>}
+                {showDeleteAll && <Button variant="outline-danger" onClick={() => deleteAll()}>DELETE ALL</Button>}
             </Container>
             <Modal show={showMisc} onHide={() => setMisc(false)} centred>
                 <Modal.Header closeButton>                    
                     <Modal.Title>What do you want to do?</Modal.Title>
                 </Modal.Header>                
                 <Modal.Body>                    
-                    <Button onClick={() => setNewCalculateCalories(true)}>Calculate my Calorie Requirement</Button>
-                    <Button onClick={() => setNewCalculateMassIndex(true)}>Calculate my Mass Index</Button>
+                    <Button variant="outline-dark" onClick={() => setNewCalculateCalories(true)}>Calculate my Calorie Requirement</Button>
+                    <Button variant="outline-dark" onClick={() => setNewCalculateMassIndex(true)}>Calculate my Mass Index</Button>
                 </Modal.Body>
             </Modal>
             <Modal show={newCalculateCalories} onHide={() => setNewCalculateCalories(false)} centred>
@@ -86,8 +86,8 @@ const Entries = () => {
                         <Form.Label>Weight</Form.Label>
                         <Form.Control type="number" onChange={(event) => {newCalculate.weight = event.target.value}}></Form.Control>
                     </Form.Group>
-                    <Button onClick={() => calculateCalories()}> Calculate!</Button>
-                    <Button onClick={() => setNewCalculateCalories(false)}>Cancel</Button>
+                    <Button variant="outline-dark" onClick={() => calculateCalories()}> Calculate!</Button>
+                    <Button variant="outline-danger" onClick={() => setNewCalculateCalories(false)}>Cancel</Button>
                 </Modal.Body>
             </Modal>
             <Modal show={newCalculateMassIndex} onHide={() => setNewCalculateMassIndex(false)} centred>
@@ -101,11 +101,11 @@ const Entries = () => {
                         <Form.Label>Weight</Form.Label>
                         <Form.Control type="number" onChange={(event) => {newCalculate.weight = event.target.value}}></Form.Control>
                     </Form.Group>
-                    <Button onClick={() => calculateMassIndex()}>Calculate!</Button>
-                    <Button onClick={() => setNewCalculateMassIndex(false)}>Cancel</Button>
+                    <Button variant="outline-dark" onClick={() => calculateMassIndex()}>Calculate!</Button>
+                    <Button variant="outline-danger" onClick={() => setNewCalculateMassIndex(false)}>Cancel</Button>
                 </Modal.Body>
             </Modal>
-            <Modal show={addNewEntry} onHide={() => setAddNewEntry(false)} centred>
+            <Modal class="test" show={addNewEntry} onHide={() => setAddNewEntry(false)} centred>
                 <Modal.Header closeButton>                    
                     <Modal.Title>Add Meal</Modal.Title>
                 </Modal.Header>                
@@ -122,8 +122,8 @@ const Entries = () => {
                         <Form.Label>Calories</Form.Label>
                         <Form.Control type="number" onChange={(event) => {newEntry.calories = event.target.value}}></Form.Control>
                     </Form.Group>
-                    <Button onClick={() => addEntry()}>Add</Button>
-                    <Button onClick={() => setAddNewEntry(false)}>Cancel</Button>
+                    <Button variant="outline-dark" onClick={() => addEntry()}>Add</Button>
+                    <Button variant="outline-dardanger" onClick={() => setAddNewEntry(false)}>Cancel</Button>
                 </Modal.Body>
             </Modal>
             <Modal show={editEntry.change} onHide={() => setEditEntry({"change":false, "id":0})} centred>
@@ -143,8 +143,8 @@ const Entries = () => {
                         <Form.Label>Calories</Form.Label>
                         <Form.Control type="number" onChange={(event) => {newEntry.calories = event.target.value}}></Form.Control>
                     </Form.Group>
-                    <Button onClick={() => editSingleEntry()}>Edit</Button>
-                    <Button onClick={() => setEditEntry({"change":false, "id":0})}>Cancel</Button>
+                    <Button variant="outline-info" onClick={() => editSingleEntry()}>Edit</Button>
+                    <Button variant="outline-danger" onClick={() => setEditEntry({"change":false, "id":0})}>Cancel</Button>
                 </Modal.Body>
             </Modal>
         </div>
@@ -166,6 +166,7 @@ const Entries = () => {
             if(response.status == 200){
                 setRefreshData(true)
                 setShowDeleteAll(true)
+                setNewEntry({"dish":"", "macroes":{"protein":0, "fat": 0, "carbs":0}, "calories":0})
             }
         })
     }
@@ -185,6 +186,7 @@ const Entries = () => {
         .then(response=>{
             if(response.status==200){
                 setRefreshData(true)
+                setNewEntry({"dish":"", "macroes":{"protein":0, "fat": 0, "carbs":0}, "calories":0})
             }
         })
     }
@@ -196,6 +198,7 @@ const Entries = () => {
         }).then(response =>{
             if(response.status == 200) {
                 setRefreshData(true)
+                setShowDeleteAll(false)
             }
         })
     }
@@ -207,6 +210,10 @@ const Entries = () => {
         }).then(response => {
             if(response.status == 200) {
                 setEntries(response.data)
+                console.log(response.data)
+                if(Array.isArray(response.data) && response.data.length!==0) {
+                    setShowDeleteAll(true)                    
+                }
             }
         })
     }
@@ -224,7 +231,8 @@ const Entries = () => {
             if(response.status == 200) {
                 console.log(response.data)
                 MySwal.fire("Your Calorie Requirement is: " + response.data)
-                setRefreshData(true)
+                setRefreshData(true)                
+                setNewCalculate({"age":0, "gender":"", "height":0, "weight":0})
             }
         })
     }
@@ -239,6 +247,7 @@ const Entries = () => {
                 console.log(response.data)             
                 MySwal.fire("Your Body Mass Index is: " + response.data)
                 setRefreshData(true)
+                setNewCalculate({"age":0, "gender":"", "height":0, "weight":0})
             }
         }) 
     }
