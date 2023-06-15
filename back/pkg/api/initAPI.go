@@ -21,7 +21,7 @@ func InitAPI(engine *gin.Engine, cfg *entities.Config) error {
 		log.Printf("routes.InitRoutes: #1\nError while running router:\n%s\n\n", err)
 		return err
 	}
-	log.Println("\n\nGIN SUCCESSFULLY STARTED!\n\n")
+	log.Printf("\n\nGIN SUCCESSFULLY STARTED!\n\n")
 	return nil
 }
 

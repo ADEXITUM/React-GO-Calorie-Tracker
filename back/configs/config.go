@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -27,8 +26,6 @@ func InitConfig() (*entities.Config, error) {
 	}
 
 	cfg := LoadConfig(port, mongoUri)
-
-	fmt.Println("BOBO INA MO: " + mongoUri + port)
 
 	return cfg, nil
 }
