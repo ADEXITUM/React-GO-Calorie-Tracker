@@ -3,4 +3,6 @@
 Минималистичный интерфейс. Возможность сохранять данные и просматривать их всегда, когда это необходимо.
 
 Стек:
-Golang + Gin, ReactJS, MongoDB
+Back-end:  Golang + Gin <br>
+Front-end: ReactJS + react-bootstrap <br>
+DB:        MongoDB 

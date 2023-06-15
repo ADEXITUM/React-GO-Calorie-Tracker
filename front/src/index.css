@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  min-width: 100%;
+}
+
+html {
+  min-height: 100%;
+}
+
+Button {
+  padding: 50;
+  margin: 100;
+}
+
+.root {
+  min-width: 100%;
+}
+
+.calorieCounter {
+  font-size: large;
+  font-weight: 800;
+  color: white;
+}
+
+.entryCard{
+  background-color: transparent;
+}
+
+.entryCard .row {
+  font-size: large;
+}
+
