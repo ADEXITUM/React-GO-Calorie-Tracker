@@ -1,4 +1,4 @@
-package models
+package entities
 
 type Calculation struct {
 	Age    float32 `json:"age"`
