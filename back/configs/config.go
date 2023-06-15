@@ -1,20 +1,20 @@
-package routes
+package config
 
 import (
+	"fmt"
 	"log"
 	"os"
 
-	"github.com/ADEXITUM/calorie-counter/models"
+	"github.com/ADEXITUM/calorie-counter/pkg/entities"
 	"github.com/joho/godotenv"
 )
 
-func InitConfig() (*models.Config, error) {
+func InitConfig() (*entities.Config, error) {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatalf("routes.InitConfig: #1\nError loading .env file\n%s\n\n", err)
 		return nil, err
 	}
-	log.Println("Loaded config")
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -28,11 +28,13 @@ func InitConfig() (*models.Config, error) {
 
 	cfg := LoadConfig(port, mongoUri)
 
+	fmt.Println("BOBO INA MO: " + mongoUri + port)
+
 	return cfg, nil
 }
 
-func LoadConfig(port, mongoUri string) *models.Config {
-	return &models.Config{
+func LoadConfig(port, mongoUri string) *entities.Config {
+	return &entities.Config{
 		Port:     port,
 		MongoURI: mongoUri,
 	}

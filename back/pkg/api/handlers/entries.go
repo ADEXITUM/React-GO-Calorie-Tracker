@@ -1,4 +1,4 @@
-package routes
+package handlers
 
 import (
 	"context"
@@ -6,21 +6,22 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/ADEXITUM/calorie-counter/models"
+	"github.com/ADEXITUM/calorie-counter/pkg/db"
+	"github.com/ADEXITUM/calorie-counter/pkg/entities"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var entryColletion *mongo.Collection = openCollection(Client, "calories")
+var entryColletion *mongo.Collection = db.OpenCollection(db.Client, "calories")
 
 func AddEntry(c *gin.Context) {
 	var ctx, cancel = context.WithTimeout(context.Background(), 60*time.Second)
 
 	defer cancel()
 
-	var entry models.Entry
+	var entry entities.Entry
 	if err := c.BindJSON(&entry); err != nil {
 		if err != nil {
 			log.Printf("routes.AddEntry: #1\nError creating entry\n%s\n\n", err)
@@ -116,7 +117,7 @@ func UpdateEntry(c *gin.Context) {
 
 	defer cancel()
 
-	var entry models.Entry
+	var entry entities.Entry
 
 	if err := c.BindJSON(&entry); err != nil {
 		log.Printf("routes.UpdateEntry: #1\nError binding JSON\n%s\n\n", err)

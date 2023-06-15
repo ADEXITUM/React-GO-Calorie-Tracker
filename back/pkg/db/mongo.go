@@ -1,10 +1,11 @@
-package routes
+package db
 
 import (
 	"context"
 	"log"
 	"time"
 
+	config "github.com/ADEXITUM/calorie-counter/configs"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -12,7 +13,7 @@ import (
 var Client *mongo.Client = DBinstance()
 
 func DBinstance() *mongo.Client {
-	cfg, err := InitConfig()
+	cfg, err := config.InitConfig()
 	if err != nil {
 		log.Printf("routes.DBinstance: #1\nError setting up DB\n%s\n\n", err)
 		return nil
@@ -39,7 +40,7 @@ func DBinstance() *mongo.Client {
 	return client
 }
 
-func openCollection(client *mongo.Client, name string) *mongo.Collection {
+func OpenCollection(client *mongo.Client, name string) *mongo.Collection {
 	var collection *mongo.Collection = client.Database("caloriesdb").Collection(name)
 
 	return collection

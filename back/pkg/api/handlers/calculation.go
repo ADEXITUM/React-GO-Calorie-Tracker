@@ -1,16 +1,16 @@
-package routes
+package handlers
 
 import (
 	"fmt"
 	"log"
 	"net/http"
 
-	"github.com/ADEXITUM/calorie-counter/models"
+	"github.com/ADEXITUM/calorie-counter/pkg/entities"
 	"github.com/gin-gonic/gin"
 )
 
 func CalculateCalories(c *gin.Context) {
-	var calculation models.Calculation
+	var calculation entities.Calculation
 	var calories float32
 
 	err := c.BindJSON(&calculation)
@@ -31,7 +31,7 @@ func CalculateCalories(c *gin.Context) {
 }
 
 func CalculateMassIndex(c *gin.Context) {
-	var calculation models.Calculation
+	var calculation entities.Calculation
 	var massIndex float32
 
 	err := c.BindJSON(&calculation)
