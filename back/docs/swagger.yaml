@@ -1,0 +1,285 @@
+basePath: /
+definitions:
+  github_com_ADEXITUM_calorie-counter_pkg_entities.Calculation:
+    properties:
+      age:
+        type: number
+      gender:
+        type: string
+      height:
+        type: number
+      weight:
+        type: number
+    type: object
+  http.ProtocolError:
+    properties:
+      errorString:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  title: Calorie Tracker
+  version: 1.0.0
+paths:
+  /calculate/calories:
+    post:
+      consumes:
+      - application/json
+      description: Calculate calories based on Harris-Benedicts formula
+      operationId: calculate-calories
+      parameters:
+      - description: calculation info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_ADEXITUM_calorie-counter_pkg_entities.Calculation'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: number
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+      summary: Calculate Calories
+      tags:
+      - calculation
+  /calculate/massindex:
+    post:
+      consumes:
+      - application/json
+      description: Calculate Body Mass Index based on Adolf Ketles formula
+      operationId: calculate-massidex
+      parameters:
+      - description: calculation info
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/github_com_ADEXITUM_calorie-counter_pkg_entities.Calculation'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: number
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+      summary: Calculate Body Mass Index
+      tags:
+      - calculation
+  /entries:
+    get:
+      description: Get all previously added entries.
+      operationId: get-all-entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+      summary: Get All Entries
+      tags:
+      - entries
+  /entries/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get entry by its ID.
+      operationId: get-entry-by-id
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+      summary: Get Entry by ID
+      tags:
+      - entries
+  /entries/create:
+    post:
+      consumes:
+      - application/json
+      description: Add entry of comsumed dish, its macroes and calories.
+      operationId: add-entry
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+      summary: Add Entry
+      tags:
+      - entries
+  /entries/delete/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete entry by its ID.
+      operationId: delete-entry
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+      summary: Delete Entry
+      tags:
+      - entries
+  /entries/delete/all:
+    delete:
+      description: Delete all entries in a "calories" collection.
+      operationId: delete-all-entries
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+      summary: Delete All Entries
+      tags:
+      - entries
+  /entries/update/:id:
+    put:
+      consumes:
+      - application/json
+      description: Update entry with new information.
+      operationId: update-entry
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema: {}
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/http.ProtocolError'
+      summary: Update Entry
+      tags:
+      - entries
+swagger: "2.0"

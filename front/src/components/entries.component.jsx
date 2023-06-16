@@ -153,7 +153,7 @@ const Entries = () => {
     function addEntry() {
         setAddNewEntry(false)
 
-        var url = "http://localhost:8080/entry/create/"
+        var url = "http://localhost:8080/entries/create/"
         axios.post(url, {
             "dish":newEntry.dish,
             "macroes": {
@@ -173,7 +173,7 @@ const Entries = () => {
 
     function editSingleEntry() {
         editEntry.change = false;
-        var url = "http://localhost:8080/entry/update/" + editEntry.id
+        var url = "http://localhost:8080/entries/update/" + editEntry.id
         axios.put(url, {
             "dish":newEntry.dish,
             "macroes": {
@@ -192,7 +192,7 @@ const Entries = () => {
     }
 
     function deleteEntry(id){
-        var url = "http://localhost:8080/entry/delete/" + id
+        var url = "http://localhost:8080/entries/delete/" + id
         axios.delete(url, {
 
         }).then(response =>{
@@ -253,7 +253,7 @@ const Entries = () => {
     }
 
     function deleteAll() {
-        var url = "http://localhost:8080/entry/delete/all"
+        var url = "http://localhost:8080/entries/delete/all"
         axios.delete(url, {
     
         }).then(response => {

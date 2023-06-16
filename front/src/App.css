@@ -1,7 +1,5 @@
 .App {
   text-align: center;
-  background: url('../src/img/background.jpg') no-repeat;
-  background-size: cover;
   min-height: 100%;
   min-width: 100%;
 }
