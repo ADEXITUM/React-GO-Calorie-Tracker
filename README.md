@@ -6,6 +6,7 @@
 Back-end:  Golang + Gin
 Front-end: ReactJS + react-bootstrap
 DB:        MongoDB
+А также Docker, Docker-compose и Swagger
 
 Для старта проекта необходимо перед первым запуском ввести комманду в терминале, находясь в корне проекта, для сборки контейнеров и установки необходимого окружения:
 ```docker-compose up -d --build```

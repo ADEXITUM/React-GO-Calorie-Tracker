@@ -8,6 +8,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @title Calorie Tracker
+// @version 1.0.0
+// @decription Back-end for Calorie Tracker Application
+
+// @host localhost:8080
+// @BasePath /
+
 func main() {
 	engine := gin.New()
 	log.Println("Created a gin instance")

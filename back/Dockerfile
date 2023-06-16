@@ -6,6 +6,7 @@ ENV GOPATH=/
 COPY ./ ./
 
 RUN export GO111MODULE=on
+RUN go install github.com/swaggo/swag/cmd/swag@latest
 RUN go mod download
 RUN go mod tidy
 RUN go build -o back ./cmd/main.go
