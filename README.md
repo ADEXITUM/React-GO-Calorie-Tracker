@@ -2,7 +2,7 @@
 
 Минималистичный интерфейс. Возможность сохранять данные и просматривать их всегда, когда это необходимо.
 
-Стек:
+Стек:<br>
 Back-end:  Golang + Gin, Docker, Docker-compose, Swagger<br>
 Front-end: ReactJS + react-bootstrap<br>
 DB:        MongoDB<br>
